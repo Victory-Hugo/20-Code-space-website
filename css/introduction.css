@@ -1,0 +1,276 @@
+/* Introduction Page Styles */
+
+.intro-content {
+    min-height: 100vh;
+    padding: 120px 2rem 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Hero Section */
+.intro-hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    margin-bottom: 4rem;
+}
+
+.intro-title {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-family: 'MapleMono', monospace;
+    font-weight: 700;
+}
+
+.intro-subtitle {
+    font-size: 1.5rem;
+    font-family: 'MapleMono', monospace;
+    opacity: 0.9;
+    display: block;
+}
+
+/* Cards Section */
+.intro-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 5rem;
+}
+
+.intro-card {
+    background: rgba(33, 37, 41, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.intro-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.intro-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--foreground);
+    font-family: 'MapleMono', monospace;
+    font-weight: 700;
+}
+
+.intro-card p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--muted-foreground);
+    font-family: 'MapleMono', monospace;
+}
+
+/* Features Section */
+.intro-features {
+    margin-bottom: 5rem;
+}
+
+.features-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--foreground);
+    font-family: 'MapleMono', monospace;
+    font-weight: 700;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.feature-item {
+    background: rgba(33, 37, 41, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 1.8rem;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.feature-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary);
+    opacity: 0.7;
+    font-family: 'MapleMono', monospace;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.feature-item h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--foreground);
+    font-family: 'MapleMono', monospace;
+    font-weight: 700;
+}
+
+.feature-item p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    font-family: 'MapleMono', monospace;
+}
+
+/* CTA Section */
+.intro-cta {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(33, 37, 41, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.intro-cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--foreground);
+    font-family: 'MapleMono', monospace;
+    font-weight: 700;
+}
+
+.intro-cta > p {
+    font-size: 1.2rem;
+    color: var(--muted-foreground);
+    margin-bottom: 2.5rem;
+    font-family: 'MapleMono', monospace;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'MapleMono', monospace;
+    color: var(--foreground);
+    background: rgba(87, 121, 149, 0.3);
+    border: 2px solid var(--primary);
+    border-radius: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.cta-button:hover {
+    background: var(--primary);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(87, 121, 149, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .intro-content {
+        padding: 100px 1rem 60px;
+    }
+
+    .intro-hero {
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .intro-title {
+        font-size: 2.2rem;
+    }
+
+    .intro-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .intro-section {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .intro-card {
+        padding: 1.8rem;
+    }
+
+    .intro-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .features-title {
+        font-size: 2rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .intro-cta {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .intro-cta h2 {
+        font-size: 1.8rem;
+    }
+
+    .intro-cta > p {
+        font-size: 1rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro-title {
+        font-size: 1.8rem;
+    }
+
+    .intro-subtitle {
+        font-size: 1rem;
+    }
+
+    .card-icon {
+        font-size: 2.5rem;
+    }
+
+    .feature-number {
+        font-size: 2.5rem;
+    }
+}

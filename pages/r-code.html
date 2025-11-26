@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R Code Gallery</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/gallery.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body class="dark">
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Top navigation -->
+    <nav class="top-nav fade-in">
+        <a href="../index.html">Home</a>
+        <a href="introduction.html">Introduction</a>
+        <a href="r-code.html">R code</a>
+        <a href="python-code.html">Python code</a>
+        <a href="other-code.html">Other code</a>
+    </nav>
+
+    <!-- Main content -->
+    <main class="gallery-content fade-in">
+        <h1 class="gallery-title">R Code Gallery</h1>
+        
+        <div class="gallery-grid">
+
+            <!-- Item 1: 堆叠图1 -->
+            <div class="gallery-item">
+                <div class="gallery-image-wrapper">
+                    <img src="../img/R code/堆叠图1.png" alt="堆叠图1" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-code-btn" onclick="openModal('modal-1')">查看代码</button>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-item-title">堆叠图1</h3>
+                    <p class="gallery-item-description">相对堆叠条形图展示能源构成随时间的变化</p>
+                </div>
+            </div>
+
+            <!-- Item 2: 密度折线图1 -->
+            <div class="gallery-item">
+                <div class="gallery-image-wrapper">
+                    <img src="../img/R code/密度折线图1.png" alt="密度折线图1" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-code-btn" onclick="openModal('modal-2')">查看代码</button>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-item-title">密度折线图1</h3>
+                    <p class="gallery-item-description">多年份月度最高温度的均值折线图</p>
+                </div>
+            </div>
+
+            <!-- Item 3: 热图1 -->
+            <div class="gallery-item">
+                <div class="gallery-image-wrapper">
+                    <img src="../img/R code/热图1.png" alt="热图1" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-code-btn" onclick="openModal('modal-3')">查看代码</button>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-item-title">热图1</h3>
+                    <p class="gallery-item-description">月份与年份的最高温度热力图</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer fade-in">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>代码空间</h4>
+                    <p>提供简洁美观的代码。</p>
+                    <div class="footer-social">
+                        <a href="https://www.webofscience.com/wos/author/record/491521" class="social-link">Obsidian</a>
+                        <a href="https://www.webofscience.com/wos/author/record/491521" class="social-link">Web of Science</a>
+                        <a href="https://scholar.google.com/citations?user=FLRq3GEAAAAJ&hl=zh-TW&oi=sra" class="social-link">Google Scholar</a>
+                        <a href="https://www.researchgate.net/profile/Guanglin-He-heguanglin-2/research" class="social-link">Research Gate</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>联系我们</h4>
+                    <div class="contact-info">
+                        <p>📧 gianthuihui@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2025140770号-3</a> &copy; </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals for code display -->
+
+    <!-- Modal 1: 堆叠图1 -->
+    <div id="modal-1" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal-1')">&times;</span>
+            <h2>堆叠图1 - R Code</h2>
+            <pre><code class="language-r"># 相对堆叠条形图展示能源构成随时间的变化
+energy |>
+  dplyr::filter(year >= 2008) |>
+  tidyplot(x = year, y = energy, color = energy_source) |>
+  add_barstack_relative()</code></pre>
+            <div class="modal-image">
+                <img src="../img/R code/堆叠图1.png" alt="堆叠图1">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: 密度折线图1 -->
+    <div id="modal-2" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal-2')">&times;</span>
+            <h2>密度折线图1 - R Code</h2>
+            <pre><code class="language-r"># 多年份月度最高温度的均值折线图
+climate |>
+  tidyplot(x = month, y = max_temperature, dodge_width = 0) |>
+  add_mean_line(group = year, alpha = 0.08) |>
+  add_mean_line() |>
+  adjust_x_axis(rotate_labels = 90)</code></pre>
+            <div class="modal-image">
+                <img src="../img/R code/密度折线图1.png" alt="密度折线图1">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: 热图1 -->
+    <div id="modal-3" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal-3')">&times;</span>
+            <h2>热图1 - R Code</h2>
+            <pre><code class="language-r"># 月份与年份的最高温度热力图
+climate |>
+  tidyplot(x = month, y = year, color = max_temperature) |>
+  add_heatmap()</code></pre>
+            <div class="modal-image">
+                <img src="../img/R code/热图1.png" alt="热图1">
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../js/page-load.js"></script>
+    <script src="../js/background.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-r.min.js"></script>
+</body>
+</html>
