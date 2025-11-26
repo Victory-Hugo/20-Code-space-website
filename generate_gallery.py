@@ -170,7 +170,10 @@ class GalleryGenerator:
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal('modal-{i}')">&times;</span>
             <h2>{item['title']} - {lang_name} Code</h2>
-            <pre><code class="language-{lang_code}">{item['code']}</code></pre>
+            <div class="modal-code-block">
+                <button class="copy-code-btn" onclick="copyCode('code-{i}', this)">Copy</button>
+                <pre><code id="code-{i}" class="language-{lang_code}">{item['code']}</code></pre>
+            </div>
             <div class="modal-image">
                 <img src="{item['image_path']}" alt="{item['title']}">
             </div>
@@ -191,6 +194,31 @@ class GalleryGenerator:
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/gallery.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .modal-code-block {{
+            position: relative;
+        }}
+        .copy-code-btn {{
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            border: none;
+            padding: 0.35rem 0.85rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s ease;
+        }}
+        .copy-code-btn:hover {{
+            background: rgba(255, 255, 255, 0.2);
+        }}
+        .copy-code-btn.copied {{
+            background: #2ecc71;
+            color: #0c0c0c;
+        }}
+    </style>
 </head>
 <body class="dark">
     <!-- Background Canvas -->
@@ -249,6 +277,53 @@ class GalleryGenerator:
     <script src="../js/modal.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="{prism_lang_component}"></script>
+    <script>
+    function copyCode(codeId, trigger) {{
+        var codeElement = document.getElementById(codeId);
+        if (!codeElement) {{
+            return;
+        }}
+        var text = codeElement.textContent || codeElement.innerText || "";
+        var onSuccess = function() {{
+            if (!trigger) {{
+                return;
+            }}
+            var original = trigger.dataset.originalText || trigger.textContent;
+            trigger.dataset.originalText = original;
+            trigger.textContent = "Copied!";
+            trigger.classList.add("copied");
+            setTimeout(function() {{
+                trigger.textContent = trigger.dataset.originalText;
+                trigger.classList.remove("copied");
+            }}, 2000);
+        }};
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {{
+            navigator.clipboard.writeText(text).then(onSuccess).catch(function() {{
+                fallbackCopy(text, trigger, onSuccess);
+            }});
+        }} else {{
+            fallbackCopy(text, trigger, onSuccess);
+        }}
+    }}
+
+    function fallbackCopy(text, trigger, callback) {{
+        var textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {{
+            document.execCommand("copy");
+            callback();
+        }} catch (err) {{
+            console.warn("复制失败:", err);
+        }}
+        document.body.removeChild(textarea);
+    }}
+    </script>
 </body>
 </html>
 """

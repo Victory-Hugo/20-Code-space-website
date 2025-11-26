@@ -7,6 +7,31 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/gallery.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .modal-code-block {
+            position: relative;
+        }
+        .copy-code-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            border: none;
+            padding: 0.35rem 0.85rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s ease;
+        }
+        .copy-code-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .copy-code-btn.copied {
+            background: #2ecc71;
+            color: #0c0c0c;
+        }
+    </style>
 </head>
 <body class="dark">
     <!-- Background Canvas -->
@@ -106,11 +131,14 @@
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal('modal-1')">&times;</span>
             <h2>堆叠图1 - R Code</h2>
-            <pre><code class="language-r"># 相对堆叠条形图展示能源构成随时间的变化
+            <div class="modal-code-block">
+                <button class="copy-code-btn" onclick="copyCode('code-1', this)">Copy</button>
+                <pre><code id="code-1" class="language-r"># 相对堆叠条形图展示能源构成随时间的变化
 energy |>
   dplyr::filter(year >= 2008) |>
   tidyplot(x = year, y = energy, color = energy_source) |>
   add_barstack_relative()</code></pre>
+            </div>
             <div class="modal-image">
                 <img src="../img/R code/堆叠图1.png" alt="堆叠图1">
             </div>
@@ -122,12 +150,15 @@ energy |>
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal('modal-2')">&times;</span>
             <h2>密度折线图1 - R Code</h2>
-            <pre><code class="language-r"># 多年份月度最高温度的均值折线图
+            <div class="modal-code-block">
+                <button class="copy-code-btn" onclick="copyCode('code-2', this)">Copy</button>
+                <pre><code id="code-2" class="language-r"># 多年份月度最高温度的均值折线图
 climate |>
   tidyplot(x = month, y = max_temperature, dodge_width = 0) |>
   add_mean_line(group = year, alpha = 0.08) |>
   add_mean_line() |>
   adjust_x_axis(rotate_labels = 90)</code></pre>
+            </div>
             <div class="modal-image">
                 <img src="../img/R code/密度折线图1.png" alt="密度折线图1">
             </div>
@@ -139,10 +170,13 @@ climate |>
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal('modal-3')">&times;</span>
             <h2>热图1 - R Code</h2>
-            <pre><code class="language-r"># 月份与年份的最高温度热力图
+            <div class="modal-code-block">
+                <button class="copy-code-btn" onclick="copyCode('code-3', this)">Copy</button>
+                <pre><code id="code-3" class="language-r"># 月份与年份的最高温度热力图
 climate |>
   tidyplot(x = month, y = year, color = max_temperature) |>
   add_heatmap()</code></pre>
+            </div>
             <div class="modal-image">
                 <img src="../img/R code/热图1.png" alt="热图1">
             </div>
@@ -155,5 +189,52 @@ climate |>
     <script src="../js/modal.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-r.min.js"></script>
+    <script>
+    function copyCode(codeId, trigger) {
+        var codeElement = document.getElementById(codeId);
+        if (!codeElement) {
+            return;
+        }
+        var text = codeElement.textContent || codeElement.innerText || "";
+        var onSuccess = function() {
+            if (!trigger) {
+                return;
+            }
+            var original = trigger.dataset.originalText || trigger.textContent;
+            trigger.dataset.originalText = original;
+            trigger.textContent = "Copied!";
+            trigger.classList.add("copied");
+            setTimeout(function() {
+                trigger.textContent = trigger.dataset.originalText;
+                trigger.classList.remove("copied");
+            }, 2000);
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(onSuccess).catch(function() {
+                fallbackCopy(text, trigger, onSuccess);
+            });
+        } else {
+            fallbackCopy(text, trigger, onSuccess);
+        }
+    }
+
+    function fallbackCopy(text, trigger, callback) {
+        var textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+            document.execCommand("copy");
+            callback();
+        } catch (err) {
+            console.warn("复制失败:", err);
+        }
+        document.body.removeChild(textarea);
+    }
+    </script>
 </body>
 </html>
